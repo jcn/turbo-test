@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TurboTest</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <%= stylesheet_link_tag "application" %>
+
+    <style>
+      [aria-busy="true"]::before {
+          display: none !important;
+      }
+    </style>
+
+    <% if params[:turbo] == "cdn" %>
+    <script type="module">
+      import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+    </script>
+    <% else %>
+    <%= javascript_importmap_tags %>
+    <% end %>
+  </head>
+
+  <body>
+    <main class="container">
+      <%= yield %>
+    </main>
+  </body>
+</html>

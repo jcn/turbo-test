@@ -1,0 +1,35 @@
+<hgroup>
+  <h2>Outside the Frame</h2>
+  <h3><%= Time.now.to_i %></h3>
+</hgroup>
+
+<section class="grid">
+  <p>
+    <%= link_to "Reload the whole page", root_path(turbo: params[:turbo], rand: @rand), role: "button" %>
+    <%= link_to "Target the frame", root_path(turbo: params[:turbo], rand: @rand), role: "button", data: { turbo_frame: "frame" } %>
+    <%= link_to "Target the frame (advance)", root_path(turbo: params[:turbo], rand: @rand), role: "button", data: { turbo_frame: "frame", turbo_action: "advance" } %>
+  </p>
+</section>
+
+<%= turbo_frame_tag "frame" do %>
+<article>
+  <h2>Turbo Frame</h2>
+
+  <p>
+    <%= link_to "Link in the frame", root_path(turbo: params[:turbo], rand: @rand), role: "button" %>
+    <%= link_to "Link in the frame (advance)", root_path(turbo: params[:turbo], rand: @rand), role: "button", data: { turbo_action: "advance" } %>
+  </p>
+  
+  <p>
+    <%= Time.now.to_i %>
+  </p>
+</article>
+<% end %>
+
+<p>
+  <% if params[:turbo] == "cdn" %>
+  <%= link_to "Switch to importmap", root_path %>
+  <% else %>
+  <%= link_to "Switch to CDN", root_path(turbo: "cdn") %>
+  <% end %>
+</p>
